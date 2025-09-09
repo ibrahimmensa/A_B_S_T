@@ -17,7 +17,10 @@ public class MainMenuHandler : MonoBehaviour
     }
 
     public void onClickPlay()
-    { }
+    {
+        MenuManager.Instance.onSwitchMenu(Menus.GAMEPLAY);
+        GamePlayManager.Instance.OnClickPlay();
+    }
 
     public void onClickSettings()
     {

@@ -19,10 +19,11 @@ public class PauseScreenHandler : MonoBehaviour
     public void onClickMainMenu()
     {
         MenuManager.Instance.onSwitchMenu(Menus.MAINMENU);
+        this.gameObject.SetActive(false);
     }
 
     public void onClickReturn()
     {
-        
+        this.gameObject.SetActive(false);
     }
 }

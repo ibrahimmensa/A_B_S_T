@@ -11,7 +11,8 @@ public enum Menus
     WINPOPUP,
     LOSEPOPUP,
     PAUSE,
-    SPLASH
+    SPLASH,
+    GAMEPLAY
 }
 
 //any kind of communication between menus will be done through this menu manager which has reference for all menus
@@ -33,6 +34,8 @@ public class MenuManager : Singleton<MenuManager>
     private PauseScreenHandler pauseScreenHandler;
     [SerializeField]
     private SplashHandler splashHandler;
+    [SerializeField]
+    private GamePlayHandler gamePlayHandler;
     #endregion
 
     //Keeping it available in inspector for checking purposes
@@ -72,8 +75,8 @@ public class MenuManager : Singleton<MenuManager>
             case Menus.SPLASH:
                 currentMenuGameObject = splashHandler.gameObject;
                 break;
-            case Menus.PAUSE:
-                currentMenuGameObject = pauseScreenHandler.gameObject;
+            case Menus.GAMEPLAY:
+                currentMenuGameObject = gamePlayHandler.gameObject;
                 break;
         }
         currentMenuGameObject.SetActive(true);
@@ -98,5 +101,6 @@ public class MenuManager : Singleton<MenuManager>
         failScreenHandler.gameObject.SetActive(false);
         disclaimerHandler.gameObject.SetActive(false);
         settingsHandler.gameObject.SetActive(false);
+        gamePlayHandler.gameObject.SetActive(false);
     }
 }
