@@ -36,6 +36,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
 
     #region GampePlay_Variables
     public int level;
+    public int clickCount = 0;
+    public CardHandler previouslyClickedCard;
     #endregion
 
     //Using OnEnable To Pass all sprites of gems and indexes for card values
@@ -58,6 +60,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
         allGrids[allGrids.Length-1].gameObject.SetActive(true);
     }
 
+
+    #region Grid_Setup
     //This function will setup grid place card prefabs in the grid and assign card values
     public void setupGrid(GridHandler grid, int rows, int columns)
     {
@@ -94,9 +98,11 @@ public class GamePlayManager : Singleton<GamePlayManager>
             GameObject SpawnedCard = Instantiate(cardPrefab, grid.transform);
             SpawnedCard.GetComponent<Image>().sprite = cardCovers[cardCover]; 
             CardHandler spawnedCardHandler = SpawnedCard.GetComponent<CardHandler>();
+            spawnedCardHandler.cover = cardCovers[cardCover];
             spawnedCardHandler.cardValue = temp_GridCards[i].cardValue;
-            SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
+            //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
             grid.allCards.Add(spawnedCardHandler);
+            clickCount = 0;
         }
     }
 
@@ -145,4 +151,29 @@ public class GamePlayManager : Singleton<GamePlayManager>
         }
         return temp;
     }
+    #endregion
+
+    #region GamePlay
+    public void onCardClicked(CardHandler clickedCard)
+    {
+        clickCount++;
+        if (clickCount % 2 == 1)
+        {
+            previouslyClickedCard = clickedCard;
+        }
+        else
+        {
+            if (previouslyClickedCard.cardValue.index == clickedCard.cardValue.index)
+            {
+                Debug.Log("Card Matched");
+            }
+            else
+            {
+                Debug.Log("Card not matched");
+                previouslyClickedCard.hideCardValueWithDelay();
+                clickedCard.hideCardValueWithDelay();
+            }
+        }
+    }
+    #endregion
 }
