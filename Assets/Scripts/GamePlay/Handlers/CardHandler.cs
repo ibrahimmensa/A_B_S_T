@@ -34,4 +34,14 @@ public class CardHandler : MonoBehaviour
     {
         Invoke("hideCardValue", 2);
     }
+
+    public void destroyCardWithDelay()
+    {
+        Invoke("destroyCard", 2);
+    }
+
+    public void destroyCard()
+    {
+        image.color = new Color(0, 0, 0, 0);
+    }
 }

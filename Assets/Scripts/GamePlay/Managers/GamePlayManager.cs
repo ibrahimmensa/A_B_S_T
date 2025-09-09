@@ -37,6 +37,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     #region GampePlay_Variables
     public int level;
     public int clickCount = 0;
+    public int score = 0;
     public CardHandler previouslyClickedCard;
     #endregion
 
@@ -103,6 +104,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
             //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
             grid.allCards.Add(spawnedCardHandler);
             clickCount = 0;
+            score = 0;
         }
     }
 
@@ -166,6 +168,10 @@ public class GamePlayManager : Singleton<GamePlayManager>
             if (previouslyClickedCard.cardValue.index == clickedCard.cardValue.index)
             {
                 Debug.Log("Card Matched");
+                score += 10;
+                MenuManager.Instance.updateScore(score);
+                previouslyClickedCard.destroyCardWithDelay();
+                clickedCard.destroyCardWithDelay();
             }
             else
             {

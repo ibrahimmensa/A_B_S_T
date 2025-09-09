@@ -103,4 +103,9 @@ public class MenuManager : Singleton<MenuManager>
         settingsHandler.gameObject.SetActive(false);
         gamePlayHandler.gameObject.SetActive(false);
     }
+
+    public void updateScore(int score)
+    {
+        gamePlayHandler.upDataeScore(score);
+    }
 }
