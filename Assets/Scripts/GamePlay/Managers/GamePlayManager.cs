@@ -163,6 +163,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 if (!SaveLoadManager.Instance.levelData.allCards[i].cardVisible)
                 {
                     spawnedCardHandler.image.color = new Color(0, 0, 0, 0);
+                    spawnedCardHandler.isVisible = false;
                 }
             }
             //turning this check off to prevent reloading of the same level
