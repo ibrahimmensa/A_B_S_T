@@ -80,6 +80,16 @@ public class GamePlayManager : Singleton<GamePlayManager>
         else
         {
             SaveLoadManager.Instance.load();
+            int loadedLevel = SaveLoadManager.Instance.levelData.roundNumber;
+            if (loadedLevel >= allGrids.Length)
+            {
+                int index = allGrids.Length - 1;
+                allGrids[index].gameObject.SetActive(true);
+            }
+            else
+            {
+                allGrids[loadedLevel].gameObject.SetActive(true);
+            }
         }
     }
 
@@ -89,46 +99,74 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public void setupGrid(GridHandler grid, int rows, int columns)
     {
         currentGrid = grid;
-        int totalCards = rows * columns;
-        int cardCover = UnityEngine.Random.Range(0, 2);
-        cardCoverIndex = cardCover;
-        List<CardHandler> temp_GridCards = new List<CardHandler>();
-
-        //Resetting all cards to not used state
-        resetCardValues();
-
-        //Making sure each grid have even number of cards to make sure every card have a pair
-        if (totalCards % 2 != 0)
+        if (!isLoadingSavedLevel)
         {
-            Debug.LogError("This grid don't have even number of cards");
-            return;
+            int totalCards = rows * columns;
+            int cardCover = UnityEngine.Random.Range(0, 2);
+            cardCoverIndex = cardCover;
+            List<CardHandler> temp_GridCards = new List<CardHandler>();
+
+            //Resetting all cards to not used state
+            resetCardValues();
+
+            //Making sure each grid have even number of cards to make sure every card have a pair
+            if (totalCards % 2 != 0)
+            {
+                Debug.LogError("This grid don't have even number of cards");
+                return;
+            }
+
+            // Setting up 2 cards per cycle to make sure there is a pair for every card
+            for (int i = 0; i < totalCards / 2; i++)
+            {
+                CardHandler temp_Card1 = new CardHandler();
+                temp_Card1.cardValue = getRandomCardValue();
+                temp_GridCards.Add(temp_Card1);
+                CardHandler temp_Card2 = new CardHandler();
+                temp_Card2.cardValue = temp_Card1.cardValue;
+                temp_GridCards.Add(temp_Card2);
+            }
+            //shuffling assigned cards
+            temp_GridCards = shuffleCards(temp_GridCards);
+
+            //instantiating cards
+            for (int i = 0; i < temp_GridCards.Count; i++)
+            {
+                GameObject SpawnedCard = Instantiate(cardPrefab, grid.transform);
+                SpawnedCard.GetComponent<Image>().sprite = cardCovers[cardCover];
+                CardHandler spawnedCardHandler = SpawnedCard.GetComponent<CardHandler>();
+                spawnedCardHandler.cover = cardCovers[cardCover];
+                spawnedCardHandler.cardValue = temp_GridCards[i].cardValue;
+                //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
+                grid.allCards.Add(spawnedCardHandler);
+                grid.totalCards = totalCards;
+                clickCount = 0;
+                score = 0;
+            }
         }
-
-        // Setting up 2 cards per cycle to make sure there is a pair for every card
-        for(int i = 0; i < totalCards/2; i++)
+        else
         {
-            CardHandler temp_Card1 = new CardHandler();
-            temp_Card1.cardValue = getRandomCardValue();
-            temp_GridCards.Add(temp_Card1);
-            CardHandler temp_Card2 = new CardHandler();
-            temp_Card2.cardValue = temp_Card1.cardValue;
-            temp_GridCards.Add(temp_Card2);
-        }
-        //shuffling assigned cards
-        temp_GridCards = shuffleCards(temp_GridCards);
-
-        //instantiating cards
-        for (int i = 0; i < temp_GridCards.Count; i++)
-        {
-            GameObject SpawnedCard = Instantiate(cardPrefab, grid.transform);
-            SpawnedCard.GetComponent<Image>().sprite = cardCovers[cardCover]; 
-            CardHandler spawnedCardHandler = SpawnedCard.GetComponent<CardHandler>();
-            spawnedCardHandler.cover = cardCovers[cardCover];
-            spawnedCardHandler.cardValue = temp_GridCards[i].cardValue;
-            //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
-            grid.allCards.Add(spawnedCardHandler);
-            clickCount = 0;
-            score = 0;
+            level = SaveLoadManager.Instance.levelData.roundNumber;
+            MenuManager.Instance.updateRound(level);
+            score = SaveLoadManager.Instance.levelData.score;
+            MenuManager.Instance.updateScore(score);
+            for (int i = 0; i < SaveLoadManager.Instance.levelData.allCards.Length; i++)
+            {
+                GameObject SpawnedCard = Instantiate(cardPrefab, grid.transform);
+                SpawnedCard.GetComponent<Image>().sprite = cardCovers[SaveLoadManager.Instance.levelData.coverIndex];
+                CardHandler spawnedCardHandler = SpawnedCard.GetComponent<CardHandler>();
+                spawnedCardHandler.cover = cardCovers[SaveLoadManager.Instance.levelData.coverIndex];
+                spawnedCardHandler.cardValue = AllCardValues[SaveLoadManager.Instance.levelData.allCards[i].cardValueIndex];
+                //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
+                grid.allCards.Add(spawnedCardHandler);
+                currentGrid.totalCards = SaveLoadManager.Instance.levelData.totalCards;
+                if (!SaveLoadManager.Instance.levelData.allCards[i].cardVisible)
+                {
+                    spawnedCardHandler.image.color = new Color(0, 0, 0, 0);
+                }
+            }
+            //turning this check off to prevent reloading of the same level
+            isLoadingSavedLevel = false;
         }
     }
 

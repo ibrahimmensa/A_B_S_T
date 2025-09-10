@@ -9,19 +9,20 @@ public class GridHandler : MonoBehaviour
     [SerializeField]
     public int rows, column;
     public List<CardHandler> allCards;
-    int totalCards;
+    public int totalCards;
 
 
     private void OnEnable()
     {
         initGrid();
+        
     }
     //This function will call gamemanager to spawn all cards in the grid and assign values to cards
     public void initGrid()
     {
         resetGrid();
         GamePlayManager.Instance.setupGrid(this, rows, column);
-        totalCards = rows * column;
+        //totalCards = rows * column;
     }
 
     public void resetGrid()

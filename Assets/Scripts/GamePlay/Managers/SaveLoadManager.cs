@@ -9,6 +9,7 @@ public class LevelData
     public int roundNumber;
     public int score;
     public int coverIndex;
+    public int totalCards;
     public cardData[] allCards;
 }
 
@@ -39,6 +40,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         levelData.score = score;
         levelData.coverIndex = cover;
         levelData.allCards = new cardData[allCards.Count];
+        levelData.totalCards = GamePlayManager.Instance.currentGrid.totalCards;
         for (int i = 0; i < allCards.Count; i++)
         {
             levelData.allCards[i] = new cardData();

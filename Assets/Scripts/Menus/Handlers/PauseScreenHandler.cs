@@ -18,6 +18,8 @@ public class PauseScreenHandler : MonoBehaviour
 
     public void onClickMainMenu()
     {
+        GamePlayManager.Instance.currentGrid.resetGrid();
+        GamePlayManager.Instance.currentGrid.gameObject.SetActive(false);
         MenuManager.Instance.onSwitchMenu(Menus.MAINMENU);
         this.gameObject.SetActive(false);
     }
