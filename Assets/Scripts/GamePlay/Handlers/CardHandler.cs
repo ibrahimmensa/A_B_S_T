@@ -10,6 +10,7 @@ public class CardHandler : MonoBehaviour
     public CardValues cardValue;
     public Sprite cover;
     public Image image;
+    public Image valueImage;
     bool isClicked = false;
     public GameObject vfx;
     public bool isVisible = true;
@@ -31,24 +32,29 @@ public class CardHandler : MonoBehaviour
 
     public void revealCardValue()
     {
-        image.sprite = cardValue.Image;
+        valueImage.gameObject.SetActive(true);
+        valueImage.sprite = cardValue.Image;
+        image.sprite = null;
     }
 
     public void hideCardValue()
     {
         image.sprite = cover;
+        image.color = Color.white;
+        valueImage.gameObject.SetActive(false);
         isClicked = false;
     }
 
     public void hideCardValueWithDelay()
     {
-        
+        image.color = Color.red;
         Invoke("hideCardValue", 2);
     }
 
     public void destroyCardWithDelay()
     {
         isVisible = false;
+        image.color = Color.green;
         Invoke("destroyCard", 2);
     }
 
@@ -59,6 +65,8 @@ public class CardHandler : MonoBehaviour
         effect.transform.localPosition = Vector3.zero;
         Destroy(effect, 0.7f);
         image.color = new Color(0, 0, 0, 0);
+        valueImage.color = new Color(0, 0, 0, 0);
+        valueImage.gameObject.SetActive(false);
         isVisible = false;
     }
 }

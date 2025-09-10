@@ -3662,7 +3662,7 @@ MonoBehaviour:
   previouslyClickedCard: {fileID: 0}
   isLoadingSavedLevel: 0
   cardCoverIndex: 0
-  resetLevels: 1
+  resetLevels: 0
 --- !u!1 &670482538
 GameObject:
   m_ObjectHideFlags: 0
@@ -8272,7 +8272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1565245913
 RectTransform:
   m_ObjectHideFlags: 0
