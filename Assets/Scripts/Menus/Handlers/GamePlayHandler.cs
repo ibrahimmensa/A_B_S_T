@@ -7,6 +7,7 @@ public class GamePlayHandler : MonoBehaviour
 {
     public TMP_Text score_Text;
     public TMP_Text counter_Text;
+    public TMP_Text round_Text;
     public GameObject CountDown_GameObject;
     // Start is called before the first frame update
     void Start()
@@ -20,8 +21,13 @@ public class GamePlayHandler : MonoBehaviour
 
     }
 
-    public void upDataeScore(int score)
+    public void updateScore(int score)
     {
         score_Text.text = score.ToString();
+    }
+
+    public void updateRound(int round)
+    {
+        round_Text.text = round.ToString();
     }
 }

@@ -8,6 +8,7 @@ public class CardHandler : MonoBehaviour
     public CardValues cardValue;
     public Sprite cover;
     public Image image;
+    bool isClicked = false;
 
     private void OnEnable()
     {
@@ -16,6 +17,9 @@ public class CardHandler : MonoBehaviour
 
     public void onClickCard()
     {
+        if (isClicked == true)
+            return;
+        isClicked = true;
         GamePlayManager.Instance.onCardClicked(this);
         revealCardValue();
     }
@@ -28,6 +32,7 @@ public class CardHandler : MonoBehaviour
     public void hideCardValue()
     {
         image.sprite = cover;
+        isClicked = false;
     }
 
     public void hideCardValueWithDelay()

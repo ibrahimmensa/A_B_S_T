@@ -2267,6 +2267,7 @@ MonoBehaviour:
   splashHandler: {fileID: 289472305}
   gamePlayHandler: {fileID: 515438360}
   currentMenu: 6
+  currentScore: 0
 --- !u!1 &437905613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score_Text: {fileID: 599414441}
   counter_Text: {fileID: 925217132}
+  round_Text: {fileID: 1772265468}
   CountDown_GameObject: {fileID: 850928875}
 --- !u!1 &549378356
 GameObject:
@@ -4308,6 +4310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a1ff45f1bda454fa6daa0c835f633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1819877933}
 --- !u!1 &925217130
 GameObject:
   m_ObjectHideFlags: 0

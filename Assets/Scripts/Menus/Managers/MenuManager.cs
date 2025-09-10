@@ -79,6 +79,8 @@ public class MenuManager : Singleton<MenuManager>
                 break;
             case Menus.GAMEPLAY:
                 currentMenuGameObject = gamePlayHandler.gameObject;
+                gamePlayHandler.updateRound(GamePlayManager.Instance.level + 1);
+                gamePlayHandler.updateScore(0);
                 break;
         }
         currentMenuGameObject.SetActive(true);
@@ -108,7 +110,13 @@ public class MenuManager : Singleton<MenuManager>
 
     public void updateScore(int score)
     {
-        gamePlayHandler.upDataeScore(score);
+        gamePlayHandler.updateScore(score);
         currentScore = score;
+    }
+
+    public void startNextLevel()
+    {
+        GamePlayManager.Instance.onClickNextLevel();
+        onSwitchMenu(Menus.GAMEPLAY);
     }
 }

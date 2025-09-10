@@ -44,6 +44,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //Using OnEnable To Pass all sprites of gems and indexes for card values
     private void OnEnable()
     {
+        PlayerPrefs.SetInt("level", 0);
+        level = PlayerPrefs.GetInt("level", 0);
         for (int i = 0; i < AllGems.Length; i++)
         {
             CardValues temp = new CardValues();
@@ -58,7 +60,13 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //This function is called when play button is clicked
     public void OnClickPlay()
     {
-        allGrids[0].gameObject.SetActive(true);
+        //allGrids[0].gameObject.SetActive(true);
+        level = PlayerPrefs.GetInt("level", 0);
+        if (level >= allGrids.Length)
+        {
+            level = allGrids.Length - 1;
+        }
+        allGrids[level].gameObject.SetActive(true);
         //allGrids[allGrids.Length-1].gameObject.SetActive(true);
     }
 
@@ -193,7 +201,16 @@ public class GamePlayManager : Singleton<GamePlayManager>
 
     public void allCardsFound()
     {
+        currentGrid.resetGrid();
+        currentGrid.gameObject.SetActive(false);
+        level++;
+        PlayerPrefs.SetInt("level", level);
         MenuManager.Instance.onSwitchMenu(Menus.WINPOPUP);
+    }
+
+    public void onClickNextLevel()
+    {
+        OnClickPlay();
     }
     #endregion
 }

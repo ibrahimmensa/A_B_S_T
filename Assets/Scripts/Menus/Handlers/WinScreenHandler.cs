@@ -7,7 +7,9 @@ public class WinScreenHandler : MonoBehaviour
 {
     public TMP_Text scoreText;
     public void onClickNextRound()
-    { }
+    {
+        MenuManager.Instance.startNextLevel();
+    }
 
     public void onClickMainMenu()
     {
