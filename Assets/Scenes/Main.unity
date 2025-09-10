@@ -1208,6 +1208,7 @@ MonoBehaviour:
   rows: 2
   column: 3
   allCards: []
+  totalCards: 0
 --- !u!1 &233414353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,6 +2241,7 @@ MonoBehaviour:
   rows: 4
   column: 5
   allCards: []
+  totalCards: 0
 --- !u!1 &403093024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,6 +2557,7 @@ MonoBehaviour:
   rows: 3
   column: 6
   allCards: []
+  totalCards: 0
 --- !u!1 &446613918
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3143,7 @@ MonoBehaviour:
     roundNumber: 0
     score: 0
     coverIndex: 0
+    totalCards: 0
     allCards: []
 --- !u!1 &578904327
 GameObject:
@@ -3218,6 +3222,7 @@ MonoBehaviour:
   rows: 3
   column: 4
   allCards: []
+  totalCards: 0
 --- !u!1 &586781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -5106,11 +5111,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8d24103170ab979429cbcad8195a738b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5782,6 +5787,7 @@ MonoBehaviour:
   rows: 4
   column: 6
   allCards: []
+  totalCards: 0
 --- !u!1 &1043784168
 GameObject:
   m_ObjectHideFlags: 0
@@ -6316,6 +6322,7 @@ MonoBehaviour:
   rows: 4
   column: 4
   allCards: []
+  totalCards: 0
 --- !u!1 &1246558259
 GameObject:
   m_ObjectHideFlags: 0
@@ -9865,6 +9872,7 @@ MonoBehaviour:
   rows: 2
   column: 2
   allCards: []
+  totalCards: 0
 --- !u!1 &1889507324
 GameObject:
   m_ObjectHideFlags: 0
