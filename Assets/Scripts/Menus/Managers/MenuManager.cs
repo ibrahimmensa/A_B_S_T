@@ -43,6 +43,7 @@ public class MenuManager : Singleton<MenuManager>
     private Menus currentMenu = Menus.SPLASH;
     private GameObject currentMenuGameObject = null;
 
+    public int currentScore;
     //making sure to start the game with splash screen
     private void OnEnable()
     {
@@ -68,6 +69,7 @@ public class MenuManager : Singleton<MenuManager>
                 break;
             case Menus.WINPOPUP:
                 currentMenuGameObject = winScreenHandler.gameObject;
+                winScreenHandler.scoreText.text = currentScore.ToString();
                 break;
             case Menus.LOSEPOPUP:
                 currentMenuGameObject = failScreenHandler.gameObject;
@@ -107,5 +109,6 @@ public class MenuManager : Singleton<MenuManager>
     public void updateScore(int score)
     {
         gamePlayHandler.upDataeScore(score);
+        currentScore = score;
     }
 }

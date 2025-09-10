@@ -58,7 +58,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //This function is called when play button is clicked
     public void OnClickPlay()
     {
-        allGrids[allGrids.Length-1].gameObject.SetActive(true);
+        allGrids[0].gameObject.SetActive(true);
+        //allGrids[allGrids.Length-1].gameObject.SetActive(true);
     }
 
 
@@ -66,6 +67,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //This function will setup grid place card prefabs in the grid and assign card values
     public void setupGrid(GridHandler grid, int rows, int columns)
     {
+        currentGrid = grid;
         int totalCards = rows * columns;
         int cardCover = UnityEngine.Random.Range(0, 2);
         List<CardHandler> temp_GridCards = new List<CardHandler>();
@@ -158,6 +160,12 @@ public class GamePlayManager : Singleton<GamePlayManager>
     #region GamePlay
     public void onCardClicked(CardHandler clickedCard)
     {
+        //Making sure the same card is not clicked twice
+        if(clickCount % 2 == 1)
+        {
+            if (previouslyClickedCard == clickedCard)
+                return;
+        }
         clickCount++;
         if (clickCount % 2 == 1)
         {
@@ -172,6 +180,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 MenuManager.Instance.updateScore(score);
                 previouslyClickedCard.destroyCardWithDelay();
                 clickedCard.destroyCardWithDelay();
+                currentGrid.pairFound();
             }
             else
             {
@@ -180,6 +189,11 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 clickedCard.hideCardValueWithDelay();
             }
         }
+    }
+
+    public void allCardsFound()
+    {
+        MenuManager.Instance.onSwitchMenu(Menus.WINPOPUP);
     }
     #endregion
 }

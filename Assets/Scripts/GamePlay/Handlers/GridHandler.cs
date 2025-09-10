@@ -9,6 +9,7 @@ public class GridHandler : MonoBehaviour
     [SerializeField]
     public int rows, column;
     public List<CardHandler> allCards;
+    int totalCards;
 
 
     private void OnEnable()
@@ -20,6 +21,7 @@ public class GridHandler : MonoBehaviour
     {
         resetGrid();
         GamePlayManager.Instance.setupGrid(this, rows, column);
+        totalCards = rows * column;
     }
 
     public void resetGrid()
@@ -31,5 +33,14 @@ public class GridHandler : MonoBehaviour
             Destroy(allCards[i].gameObject);
         }
         allCards.Clear();
+    }
+
+    public void pairFound()
+    {
+        totalCards = totalCards - 2;
+        if (totalCards == 0)
+        {
+            GamePlayManager.Instance.allCardsFound();
+        }
     }
 }
