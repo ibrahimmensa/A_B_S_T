@@ -26,4 +26,9 @@ public class PauseScreenHandler : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    public void onClickSave()
+    {
+        GamePlayManager.Instance.onClickSave();
+    }
 }

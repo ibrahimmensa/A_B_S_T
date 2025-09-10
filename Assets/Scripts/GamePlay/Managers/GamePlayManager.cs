@@ -39,6 +39,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public int clickCount = 0;
     public int score = 0;
     public CardHandler previouslyClickedCard;
+    public bool isLoadingSavedLevel = false;
+    public int cardCoverIndex;
     #endregion
 
     //Using OnEnable To Pass all sprites of gems and indexes for card values
@@ -60,18 +62,25 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //This function is called when play button is clicked
     public void OnClickPlay()
     {
-        //allGrids[0].gameObject.SetActive(true);
-        level = PlayerPrefs.GetInt("level", 0);
-        if (level >= allGrids.Length)
+        if (!isLoadingSavedLevel)
         {
-            int index = allGrids.Length - 1;
-            allGrids[index].gameObject.SetActive(true);
+            //allGrids[0].gameObject.SetActive(true);
+            level = PlayerPrefs.GetInt("level", 0);
+            if (level >= allGrids.Length)
+            {
+                int index = allGrids.Length - 1;
+                allGrids[index].gameObject.SetActive(true);
+            }
+            else
+            {
+                allGrids[level].gameObject.SetActive(true);
+            }
+            //allGrids[allGrids.Length-1].gameObject.SetActive(true);
         }
         else
         {
-            allGrids[level].gameObject.SetActive(true);
+            SaveLoadManager.Instance.load();
         }
-        //allGrids[allGrids.Length-1].gameObject.SetActive(true);
     }
 
 
@@ -82,6 +91,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         currentGrid = grid;
         int totalCards = rows * columns;
         int cardCover = UnityEngine.Random.Range(0, 2);
+        cardCoverIndex = cardCover;
         List<CardHandler> temp_GridCards = new List<CardHandler>();
 
         //Resetting all cards to not used state
@@ -218,6 +228,13 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public void onClickNextLevel()
     {
         OnClickPlay();
+    }
+    #endregion
+
+    #region SAVE&LOAD_LEVEL
+    public void onClickSave()
+    {
+        SaveLoadManager.Instance.save(currentGrid.allCards, level, score, cardCoverIndex);
     }
     #endregion
 }

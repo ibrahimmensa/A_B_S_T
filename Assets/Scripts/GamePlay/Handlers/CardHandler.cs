@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
+[Serializable]
 public class CardHandler : MonoBehaviour
 {
     public CardValues cardValue;
@@ -10,6 +12,7 @@ public class CardHandler : MonoBehaviour
     public Image image;
     bool isClicked = false;
     public GameObject vfx;
+    public bool isVisible = true;
 
     private void OnEnable()
     {
@@ -45,6 +48,7 @@ public class CardHandler : MonoBehaviour
 
     public void destroyCardWithDelay()
     {
+        isVisible = false;
         Invoke("destroyCard", 2);
     }
 
@@ -55,5 +59,6 @@ public class CardHandler : MonoBehaviour
         effect.transform.localPosition = Vector3.zero;
         Destroy(effect, 0.7f);
         image.color = new Color(0, 0, 0, 0);
+        isVisible = false;
     }
 }
