@@ -41,12 +41,16 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public CardHandler previouslyClickedCard;
     public bool isLoadingSavedLevel = false;
     public int cardCoverIndex;
+    public bool resetLevels = false;
     #endregion
 
     //Using OnEnable To Pass all sprites of gems and indexes for card values
     private void OnEnable()
     {
-        PlayerPrefs.SetInt("level", 0);
+        if (resetLevels)
+        {
+            PlayerPrefs.SetInt("level", 0);
+        }
         level = PlayerPrefs.GetInt("level", 0);
         for (int i = 0; i < AllGems.Length; i++)
         {

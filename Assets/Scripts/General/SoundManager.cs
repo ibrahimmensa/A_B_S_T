@@ -17,16 +17,19 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource SFX;
     public AudioClip btn_Click, card_Flip, win_SFX, card_Matched_SFX, card_Not_Matched_SFX;
     public AudioClip bg_Music;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        if (PlayerPrefs.GetInt("music", 1) == 0)
+        {
+            BGMusic.Stop();
+            BGMusic.gameObject.SetActive(false);
+        }
+        else
+        {
+            BGMusic.gameObject.SetActive(true);
+            BGMusic.Play();
+        }
     }
 
     public void playSound(sfx_type type)

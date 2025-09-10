@@ -20,4 +20,9 @@ public class GamePlayHandler : MonoBehaviour
     {
         round_Text.text = round.ToString();
     }
+
+    public void onClickPause()
+    {
+        MenuManager.Instance.onClickPause();
+    }
 }

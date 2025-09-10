@@ -119,6 +119,11 @@ public class MenuManager : Singleton<MenuManager>
         gamePlayHandler.updateRound(round + 1);
     }
 
+    public void onClickPause()
+    {
+        pauseScreenHandler.gameObject.SetActive(true);
+    }
+
     public void startNextLevel()
     {
         GamePlayManager.Instance.onClickNextLevel();

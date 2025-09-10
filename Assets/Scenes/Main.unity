@@ -1496,10 +1496,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 110564832}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 515438360}
+        m_TargetAssemblyTypeName: GamePlayHandler, Assembly-CSharp
+        m_MethodName: onClickPause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3662,6 +3662,7 @@ MonoBehaviour:
   previouslyClickedCard: {fileID: 0}
   isLoadingSavedLevel: 0
   cardCoverIndex: 0
+  resetLevels: 1
 --- !u!1 &670482538
 GameObject:
   m_ObjectHideFlags: 0
@@ -7069,7 +7070,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1904629442}
+        m_TargetAssemblyTypeName: SettingsHandler, Assembly-CSharp
+        m_MethodName: onToggleSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1387042018
 GameObject:
@@ -7155,7 +7168,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1904629442}
+        m_TargetAssemblyTypeName: SettingsHandler, Assembly-CSharp
+        m_MethodName: onToggleMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1388009059
 GameObject:
@@ -8247,7 +8272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1565245913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10058,6 +10083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494fe05688ecc194097bfba2a4b20530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music_Toggle: {fileID: 1387042020}
+  SFX_Toggle: {fileID: 1379054169}
 --- !u!1 &1909746652
 GameObject:
   m_ObjectHideFlags: 0
