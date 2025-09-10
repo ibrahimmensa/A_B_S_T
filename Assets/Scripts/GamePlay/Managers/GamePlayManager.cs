@@ -193,12 +193,14 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 previouslyClickedCard.destroyCardWithDelay();
                 clickedCard.destroyCardWithDelay();
                 currentGrid.pairFound();
+                SoundManager.Instance.playSound(sfx_type.CARD_MATCHED);
             }
             else
             {
                 Debug.Log("Card not matched");
                 previouslyClickedCard.hideCardValueWithDelay();
                 clickedCard.hideCardValueWithDelay();
+                SoundManager.Instance.playSound(sfx_type.CARD_NOT_MATCHED);
             }
         }
     }
@@ -210,6 +212,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         level++;
         PlayerPrefs.SetInt("level", level);
         MenuManager.Instance.onSwitchMenu(Menus.WINPOPUP);
+        SoundManager.Instance.playSound(sfx_type.WIN_SFX);
     }
 
     public void onClickNextLevel()

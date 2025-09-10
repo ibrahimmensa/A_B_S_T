@@ -151,3 +151,6 @@ MonoBehaviour:
     cover: {fileID: 0}
     index: 0
     isUsed: 0
+  cover: {fileID: 0}
+  image: {fileID: 0}
+  vfx: {fileID: 2545755947697974952, guid: e3ea4b73784daa7479c16acf8476b8b2, type: 3}

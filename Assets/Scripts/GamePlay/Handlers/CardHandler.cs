@@ -9,6 +9,7 @@ public class CardHandler : MonoBehaviour
     public Sprite cover;
     public Image image;
     bool isClicked = false;
+    public GameObject vfx;
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class CardHandler : MonoBehaviour
         isClicked = true;
         GamePlayManager.Instance.onCardClicked(this);
         revealCardValue();
+        SoundManager.Instance.playSound(sfx_type.CARD_FLIP);
     }
 
     public void revealCardValue()
@@ -37,6 +39,7 @@ public class CardHandler : MonoBehaviour
 
     public void hideCardValueWithDelay()
     {
+        
         Invoke("hideCardValue", 2);
     }
 
@@ -47,6 +50,10 @@ public class CardHandler : MonoBehaviour
 
     public void destroyCard()
     {
+        GameObject effect = Instantiate(vfx, Vector3.zero, Quaternion.identity, this.transform);
+        effect.transform.position = Vector3.zero;
+        effect.transform.localPosition = Vector3.zero;
+        Destroy(effect, 0.7f);
         image.color = new Color(0, 0, 0, 0);
     }
 }

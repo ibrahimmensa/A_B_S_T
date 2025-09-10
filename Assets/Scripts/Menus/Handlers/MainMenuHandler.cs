@@ -18,12 +18,14 @@ public class MainMenuHandler : MonoBehaviour
 
     public void onClickPlay()
     {
+        SoundManager.Instance.playSound(sfx_type.BTN_CLICK);
         MenuManager.Instance.onSwitchMenu(Menus.GAMEPLAY);
         GamePlayManager.Instance.OnClickPlay();
     }
 
     public void onClickSettings()
     {
+        SoundManager.Instance.playSound(sfx_type.BTN_CLICK);
         MenuManager.Instance.onSwitchMenu(Menus.SETTINGS);
     }
 }

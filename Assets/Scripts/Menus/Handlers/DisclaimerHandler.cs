@@ -18,6 +18,7 @@ public class DisclaimerHandler : MonoBehaviour
 
     public void onClickClose()
     {
+        SoundManager.Instance.playSound(sfx_type.BTN_CLICK);
         MenuManager.Instance.onSwitchMenu(Menus.MAINMENU);
     }
 }
