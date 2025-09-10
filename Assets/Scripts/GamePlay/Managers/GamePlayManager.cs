@@ -64,9 +64,13 @@ public class GamePlayManager : Singleton<GamePlayManager>
         level = PlayerPrefs.GetInt("level", 0);
         if (level >= allGrids.Length)
         {
-            level = allGrids.Length - 1;
+            int index = allGrids.Length - 1;
+            allGrids[index].gameObject.SetActive(true);
         }
-        allGrids[level].gameObject.SetActive(true);
+        else
+        {
+            allGrids[level].gameObject.SetActive(true);
+        }
         //allGrids[allGrids.Length-1].gameObject.SetActive(true);
     }
 
