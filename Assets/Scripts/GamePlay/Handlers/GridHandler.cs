@@ -41,7 +41,13 @@ public class GridHandler : MonoBehaviour
         totalCards = totalCards - 2;
         if (totalCards == 0)
         {
-            GamePlayManager.Instance.allCardsFound();
+            StartCoroutine(finishMatchWithDelay());
         }
+    }
+
+    IEnumerator finishMatchWithDelay()
+    {
+        yield return new WaitForSeconds(3);
+        GamePlayManager.Instance.allCardsFound();
     }
 }

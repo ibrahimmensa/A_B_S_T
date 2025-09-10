@@ -7,6 +7,8 @@ public class SettingsHandler : MonoBehaviour
 {
     public Toggle music_Toggle, SFX_Toggle;
 
+
+    //on enable is used to load user settings from playerprefs
     private void OnEnable()
     {
         if (PlayerPrefs.GetInt("music", 1) == 0)
@@ -34,6 +36,7 @@ public class SettingsHandler : MonoBehaviour
         MenuManager.Instance.onSwitchMenu(Menus.MAINMENU);
     }
 
+    //Toggle music on and off and saving user choice in playerprefs to save it
     public void onToggleMusic()
     {
         if (music_Toggle.isOn)
@@ -50,6 +53,7 @@ public class SettingsHandler : MonoBehaviour
         }
     }
 
+    //Toggle SFX on and off and saving user choice in playerprefs to save it
     public void onToggleSFX()
     { 
         if (SFX_Toggle.isOn)

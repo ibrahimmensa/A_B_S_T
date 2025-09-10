@@ -10,6 +10,7 @@ public class MainMenuHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        //if save file is available make the load button intereactable
         if (PlayerPrefs.GetInt("havesafefile", 0) == 1)
         {
             loadBtn.interactable = true;

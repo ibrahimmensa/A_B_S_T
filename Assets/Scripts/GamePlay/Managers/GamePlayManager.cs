@@ -66,9 +66,9 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //This function is called when play button is clicked
     public void OnClickPlay()
     {
+        //if user is not loading a saved level regular levels will be played in sequence
         if (!isLoadingSavedLevel)
         {
-            //allGrids[0].gameObject.SetActive(true);
             level = PlayerPrefs.GetInt("level", 0);
             if (level >= allGrids.Length)
             {
@@ -79,10 +79,10 @@ public class GamePlayManager : Singleton<GamePlayManager>
             {
                 allGrids[level].gameObject.SetActive(true);
             }
-            //allGrids[allGrids.Length-1].gameObject.SetActive(true);
         }
         else
         {
+            //if user loaded a previous level then this part will be executed
             SaveLoadManager.Instance.load();
             int loadedLevel = SaveLoadManager.Instance.levelData.roundNumber;
             if (loadedLevel >= allGrids.Length)
@@ -103,6 +103,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public void setupGrid(GridHandler grid, int rows, int columns)
     {
         currentGrid = grid;
+        //if user is not loading a saved file new level with random values will be initiated
         if (!isLoadingSavedLevel)
         {
             int totalCards = rows * columns;
@@ -141,7 +142,6 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 CardHandler spawnedCardHandler = SpawnedCard.GetComponent<CardHandler>();
                 spawnedCardHandler.cover = cardCovers[cardCover];
                 spawnedCardHandler.cardValue = temp_GridCards[i].cardValue;
-                //SpawnedCard.GetComponent<Image>().sprite = spawnedCardHandler.cardValue.Image; 
                 grid.allCards.Add(spawnedCardHandler);
                 grid.totalCards = totalCards;
                 clickCount = 0;
@@ -150,6 +150,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         }
         else
         {
+            //If user loaded a saved level all the data will be retrieved from the save file
             level = SaveLoadManager.Instance.levelData.roundNumber;
             MenuManager.Instance.updateRound(level);
             score = SaveLoadManager.Instance.levelData.score;
@@ -232,12 +233,14 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 return;
         }
         clickCount++;
+        //If click count is odd it means first card is clicked
         if (clickCount % 2 == 1)
         {
             previouslyClickedCard = clickedCard;
         }
         else
         {
+            //if click count is even it means its the second card and now we will compare 2 cards if they have same images or values
             if (previouslyClickedCard.cardValue.index == clickedCard.cardValue.index)
             {
                 Debug.Log("Card Matched");
@@ -246,18 +249,25 @@ public class GamePlayManager : Singleton<GamePlayManager>
                 previouslyClickedCard.destroyCardWithDelay();
                 clickedCard.destroyCardWithDelay();
                 currentGrid.pairFound();
-                SoundManager.Instance.playSound(sfx_type.CARD_MATCHED);
+                StartCoroutine(playSoundWithDelay(sfx_type.CARD_MATCHED));
             }
             else
             {
                 Debug.Log("Card not matched");
                 previouslyClickedCard.hideCardValueWithDelay();
                 clickedCard.hideCardValueWithDelay();
-                SoundManager.Instance.playSound(sfx_type.CARD_NOT_MATCHED);
+                StartCoroutine(playSoundWithDelay(sfx_type.CARD_NOT_MATCHED));
             }
         }
     }
 
+    IEnumerator playSoundWithDelay(sfx_type type)
+    {
+        yield return new WaitForSeconds(1);
+        SoundManager.Instance.playSound(type);
+    }
+
+    //When all cards are found game will end
     public void allCardsFound()
     {
         currentGrid.resetGrid();
@@ -275,6 +285,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
     #endregion
 
     #region SAVE&LOAD_LEVEL
+
+    //This function will save current state of the level
     public void onClickSave()
     {
         SaveLoadManager.Instance.save(currentGrid.allCards, level, score, cardCoverIndex);

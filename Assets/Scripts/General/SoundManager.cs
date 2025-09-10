@@ -18,6 +18,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip btn_Click, card_Flip, win_SFX, card_Matched_SFX, card_Not_Matched_SFX;
     public AudioClip bg_Music;
 
+    //making sure to only play sounds which are allowed by user through settings
     private void OnEnable()
     {
         if (PlayerPrefs.GetInt("music", 1) == 0)
@@ -32,6 +33,8 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+
+    //This function will be called from everywhere to play sfx of specific kind
     public void playSound(sfx_type type)
     {
         if (PlayerPrefs.GetInt("sfx", 1) == 0)
